@@ -2892,7 +2892,7 @@ var Ot = { bounce: 0.2, delay: 0, duration: 0.4, type: "spring" },
                                   layoutId: "LSJ_LwryE-container",
                                   children: e(Ce, {
                                     diDBqZx1P:
-                                      "https://envoy-5.gitbook.io/envoy-whitepaper",
+                                      "https://selens-organization.gitbook.io/envoy-whitepaper",
                                     height: "100%",
                                     id: "LSJ_LwryE",
                                     layoutId: "LSJ_LwryE",
@@ -4151,7 +4151,7 @@ var jr = "framer-j7gyU",
                                       "data-framer-cursor": "1sqcj7",
                                       children: e(je, {
                                         diDBqZx1P:
-                                          "https://envoy-5.gitbook.io/envoy-whitepaper",
+                                          "https://selens-organization.gitbook.io/envoy-whitepaper",
                                         height: "100%",
                                         id: "j2pSAmQDF",
                                         layoutId: "j2pSAmQDF",
@@ -4160,6 +4160,34 @@ var jr = "framer-j7gyU",
                                         XqeH23ibS:
                                           "var(--token-e9f70aed-d77b-43b1-a510-6cf8aaad0258, rgb(255, 255, 255))",
                                         Y5evmdtWp: "Whitepaper",
+                                      }),
+                                    }),
+                                  }),
+                                }),
+                                e(U, {
+                                  breakpoint: s,
+                                  overrides: {
+                                    nA1CMlh2G: { y: 989 },
+                                    TjUQbTwJq: { y: 716 },
+                                  },
+                                  children: e(q, {
+                                    height: 16,
+                                    y: 869,
+                                    children: e(te, {
+                                      as: "li",
+                                      className: "framer-vddy3t-container",
+                                      "data-framer-cursor": "1sqcj7",
+                                      children: e(je, {
+                                        diDBqZx1P:
+                                          "https://app-envoy-agent.vercel.app/",
+                                        height: "100%",
+                                        id: "j2pSAmQDF",
+                                        layoutId: "j2pSAmQDF",
+                                        variant: "paIFpdnCe",
+                                        width: "100%",
+                                        XqeH23ibS:
+                                          "var(--token-e9f70aed-d77b-43b1-a510-6cf8aaad0258, rgb(255, 255, 255))",
+                                        Y5evmdtWp: "Launch App",
                                       }),
                                     }),
                                   }),
