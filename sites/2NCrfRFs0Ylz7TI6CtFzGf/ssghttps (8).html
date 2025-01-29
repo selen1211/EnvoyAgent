@@ -1,0 +1,68 @@
+import{jsx as _jsx,Fragment as _Fragment}from"react/jsx-runtime";import{addPropertyControls,ControlType}from"framer";import Lenis from"lenis";// import Lenis from "@studio-freight/lenis"
+import{useEffect,useRef}from"react";/**
+ * @framerDisableUnlink
+ */export default function SmoothScroll(props){const{intensity}=props;const lenis=useRef(null);useEffect(()=>{if(lenis.current)lenis.current.scrollTo(0,{immediate:true});},[lenis]);// Check Overlay overflow
+useEffect(()=>{const overlayElement=document.getElementById("overlay");if(overlayElement){const checkOverflow=()=>{const htmlStyle=window.getComputedStyle(document.documentElement);const isOverflowHidden=htmlStyle.overflow==="hidden";if(isOverflowHidden){overlayElement.setAttribute("data-lenis-prevent","true");}};// Set up MutationObserver for the html element
+const htmlObserver=new MutationObserver(mutations=>{for(const mutation of mutations){if(mutation.type==="attributes"&&mutation.attributeName==="style"){checkOverflow();}}});// Observe the html element for style changes
+htmlObserver.observe(document.documentElement,{attributes:true,attributeFilter:["style"]});// Initial check
+checkOverflow();return()=>{htmlObserver.disconnect();};}},[]);// useEffect(() => {
+//     const overlayElement = document.getElementById("overlay")
+//     if (overlayElement) {
+//         const handleMutation = (mutationsList, observer) => {
+//             for (const mutation of mutationsList) {
+//                 if (
+//                     mutation.type === "childList" &&
+//                     overlayElement.children.length > 0
+//                 ) {
+//                     // Check if the html tag has the style "overflow: hidden;"
+//                     const htmlElement = document.documentElement
+//                     console.log(htmlElement, "htmlElement")
+//                     const computedStyle =
+//                         window.getComputedStyle(htmlElement)
+//                     console.log("computedStyle", computedStyle)
+//                     const isOverflowHidden =
+//                         computedStyle.overflow === "hidden"
+//                     console.log("isOverflowHidden", isOverflowHidden)
+//                     if (isOverflowHidden) {
+//                         overlayElement.setAttribute(
+//                             "data-lenis-prevent",
+//                             "true"
+//                         )
+//                     }
+//                 }
+//             }
+//         }
+//         const observer = new MutationObserver(handleMutation)
+//         observer.observe(overlayElement, {
+//             childList: true,
+//             attributes: true,
+//             subtree: true,
+//         })
+//         return () => observer.disconnect()
+//     }
+// }, [])
+useEffect(()=>{const allElements=document.getElementsByTagName("*");for(let i=0;i<allElements.length;i++){const element=allElements[i];const computedStyle=window.getComputedStyle(element);if(computedStyle.getPropertyValue("overflow")==="auto"){element.setAttribute("data-lenis-prevent","true");}}},[]);useEffect(()=>{lenis.current=new Lenis({duration:intensity/10});const raf=time=>{if(lenis.current){lenis.current.raf(time);requestAnimationFrame(raf);}};requestAnimationFrame(raf);return()=>{if(lenis.current){lenis.current.destroy();lenis.current=null;}};},[]);useEffect(()=>{const styleElement=document.createElement("style");styleElement.textContent=`
+html.lenis {
+height: auto;
+}
+.lenis.lenis-smooth {
+
+scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+
+overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+
+overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+
+pointer-events: none;
+}
+`;document.head.appendChild(styleElement);return()=>{document.head.removeChild(styleElement);};},[]);//https://github.com/darkroomengineering/lenis?tab=readme-ov-file#anchor-links
+useEffect(()=>{// Get all anchor links and store click handlers with their targets
+const anchorLinksData=[...document.querySelectorAll("a[href]")].filter(anchor=>anchor.href.includes("#")).map(anchor=>{const href=`#${anchor.href.split("#").pop()}`;const decodedHref=decodeURIComponent(href);let scrollMargin=0;const targetElement=document.querySelector(decodedHref);if(targetElement){scrollMargin=parseInt(window.getComputedStyle(targetElement).scrollMarginTop);}return{href,scrollMargin,anchorElement:anchor};});const handleClick=(e,href,scrollMargin)=>{e.preventDefault();lenis.current.scrollTo(href,{offset:-scrollMargin});};const handlers=anchorLinksData.map(({href,scrollMargin})=>e=>handleClick(e,href,scrollMargin));anchorLinksData.forEach(({anchorElement},index)=>{anchorElement.addEventListener("click",handlers[index]);});return()=>{anchorLinksData.forEach(({anchorElement},index)=>{anchorElement.removeEventListener("click",handlers[index]);});};},[lenis]);return /*#__PURE__*/_jsx(_Fragment,{});}SmoothScroll.displayName="Smooth Scroll";addPropertyControls(SmoothScroll,{intensity:{title:"Intensity",type:ControlType.Number,defaultValue:10,description:"More components at [Framer University](https://frameruni.link/cc)."}});
+export const __FramerMetadata__ = {"exports":{"default":{"type":"reactComponent","name":"SmoothScroll","slots":[],"annotations":{"framerDisableUnlink":"","framerContractVersion":"1"}},"__FramerMetadata__":{"type":"variable"}}}
+//# sourceMappingURL=./SmoothScroll_Prod.map
